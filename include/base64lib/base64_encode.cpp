@@ -7,7 +7,7 @@ std::string encode_to_base64(const char *source_bytes,
 	pad_type pad_result = pad(&padded_bytes);
 
 	std::string encoded_bytes;
-	encoded_bytes.reserve((size_t)(padded_bytes.size() / 3) * 4);
+	encoded_bytes.reserve((padded_bytes.size() / 3) * 4);
 	// The loop requires that the vector size be perfectly divisible by 3.
 	for (size_t i = 0; i < padded_bytes.size(); i += 3)
 	{
