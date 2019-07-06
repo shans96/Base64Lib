@@ -3,12 +3,7 @@
 std::string encode_to_base64(const char *source_bytes,
 	size_t source_bytes_size)
 {
-	std::vector<unsigned char> padded_bytes;
-	padded_bytes.reserve(source_bytes_size);
-	for (int i = 0; i < source_bytes_size; i++)
-	{
-		padded_bytes.push_back(source_bytes[i]);
-	}
+	std::vector<unsigned char> padded_bytes(source_bytes, source_bytes + source_bytes_size);
 	pad_type pad_result = pad(&padded_bytes);
 
 	std::string encoded_bytes;
