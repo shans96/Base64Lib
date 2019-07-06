@@ -34,15 +34,7 @@ std::string encode_to_base64(const char *source_bytes,
 		encoded_bytes += b64_encoding_table[last_hexad];
 	}
 
-	if (pad_result == padded_once)
-	{
-		encoded_bytes.back() = '=';
-	}
-	else if (pad_result == padded_twice)
-	{
-		encoded_bytes.back() = '=';
-		encoded_bytes.at(encoded_bytes.length() - 2) = '=';
-	}
+	overwrite_end_bytes(&encoded_bytes, pad_result);
 	return encoded_bytes;
 }
 
@@ -64,4 +56,18 @@ pad_type pad(std::vector<unsigned char> *vector)
 		return padded_twice;
 	}
 	throw std::runtime_error("Error occurred while encoding: vector has invalid size");
+}
+
+void overwrite_end_bytes(std::string *string,
+	pad_type pad_result)
+{
+	if (pad_result == padded_once)
+	{
+		string->back() = '=';
+	}
+	else if (pad_result == padded_twice)
+	{
+		string->back() = '=';
+		string->at(string->length() - 2) = '=';
+	}
 }

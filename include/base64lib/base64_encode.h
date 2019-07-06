@@ -16,3 +16,5 @@ enum pad_type
 std::string encode_to_base64(const char *source_bytes,
 	size_t source_bytes_size);
 pad_type pad(std::vector<unsigned char> *vector);
+void overwrite_end_bytes(std::string *string,
+	pad_type pad_type);
