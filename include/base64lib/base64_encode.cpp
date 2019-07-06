@@ -1,4 +1,5 @@
 #include "base64_encode.h"
+#include <stdexcept>
 
 std::string encode_to_base64(const char *source_bytes,
 	size_t source_bytes_size)
@@ -63,4 +64,5 @@ pad_type pad(std::vector<unsigned char> *vector)
 		vector->push_back('\0');
 		return padded_twice;
 	}
+	throw std::runtime_error("Error occurred while encoding: vector has invalid size");
 }
