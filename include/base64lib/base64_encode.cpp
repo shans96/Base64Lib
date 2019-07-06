@@ -20,7 +20,8 @@ std::string encode_to_base64(const char *source_bytes,
 		unsigned char second_byte = padded_bytes[i + 1];
 		unsigned char last_byte = padded_bytes[i + 2];
 
-		unsigned char first_hexad = first_byte >> 2; // A hexad is a group of six bits.
+		// A hexad is a group of six bits.
+		unsigned char first_hexad = first_byte >> 2; 
 
 		unsigned char second_chunk_first_two = (first_byte & 0b00000011) << 4;
 		unsigned char second_chunk_last_four = (second_byte & 0b11110000) >> 4;
