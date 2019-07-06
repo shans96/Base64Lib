@@ -23,13 +23,13 @@ std::string encode_to_base64(const char *source_bytes,
 		// A hexad is a group of six bits.
 		unsigned char first_hexad = first_byte >> 2; 
 
-		unsigned char second_chunk_first_two = (first_byte & 0b00000011) << 4;
-		unsigned char second_chunk_last_four = (second_byte & 0b11110000) >> 4;
-		unsigned char second_hexad = second_chunk_first_two ^ second_chunk_last_four;
+		unsigned char second_hexad_first_bits = (first_byte & 0b00000011) << 4;
+		unsigned char second_hexad_last_bits = (second_byte & 0b11110000) >> 4;
+		unsigned char second_hexad = second_hexad_first_bits ^ second_hexad_last_bits;
 
-		unsigned char third_chunk_first_four = (second_byte & 0b00001111) << 2;
-		unsigned char third_chunk_last_two = last_byte >> 6;
-		unsigned char third_hexad = third_chunk_first_four ^ third_chunk_last_two;
+		unsigned char third_hexad_first_bits = (second_byte & 0b00001111) << 2;
+		unsigned char third_hexad_last_bits = last_byte >> 6;
+		unsigned char third_hexad = third_hexad_first_bits ^ third_hexad_last_bits;
 
 		unsigned char last_hexad = last_byte & 0b0111111;
 
