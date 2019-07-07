@@ -72,7 +72,7 @@ unsigned char calculate_second_hexad(unsigned char first_byte,
 unsigned char calculate_third_hexad(unsigned char first_byte,
 	unsigned char second_byte)
 {
-	unsigned char first_four_bits = (first_byte & 0b00001111) << 2;
+	unsigned char first_four_bits = (first_byte & 15) << 2;
 	unsigned char last_two_bits = second_byte >> 6;
 	return first_four_bits ^ last_two_bits;
 }
