@@ -17,17 +17,9 @@ std::string encode_to_base64(const char *source_bytes,
 
 		// A hexad is a group of six bits.
 
-		unsigned char second_hexad_first_bits = (first_byte & 0b00000011) << 4;
-		unsigned char second_hexad_last_bits = (second_byte & 0b11110000) >> 4;
-		unsigned char second_hexad = second_hexad_first_bits ^ second_hexad_last_bits;
-
-		unsigned char third_hexad_first_bits = (second_byte & 0b00001111) << 2;
-		unsigned char third_hexad_last_bits = last_byte >> 6;
-		unsigned char third_hexad = third_hexad_first_bits ^ third_hexad_last_bits;
-
 		encoded_bytes += b64_encoding_table[first_byte >> 2];
-		encoded_bytes += b64_encoding_table[second_hexad];
-		encoded_bytes += b64_encoding_table[third_hexad];
+		encoded_bytes += b64_encoding_table[calculate_second_hexad(first_byte, second_byte)];
+		encoded_bytes += b64_encoding_table[calculate_third_hexad(second_byte, last_byte)];
 		encoded_bytes += b64_encoding_table[last_byte & 63];
 	}
 
@@ -67,4 +59,20 @@ void overwrite_end_bytes(std::string *string,
 		string->back() = '=';
 		string->at(string->length() - 2) = '=';
 	}
+}
+
+unsigned char calculate_second_hexad(unsigned char first_byte, 
+	unsigned char second_byte)
+{
+	unsigned char first_two_bits = (first_byte & 3) << 4;
+	unsigned char last_four_bits = (second_byte & 240) >> 4;
+	return first_two_bits ^ last_four_bits;
+}
+
+unsigned char calculate_third_hexad(unsigned char first_byte,
+	unsigned char second_byte)
+{
+	unsigned char first_four_bits = (first_byte & 0b00001111) << 2;
+	unsigned char last_two_bits = second_byte >> 6;
+	return first_four_bits ^ last_two_bits;
 }
