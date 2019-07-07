@@ -9,7 +9,7 @@ SCENARIO("Valid data is provided to encode", "[encoding]")
 		{
 			THEN("The resulting Base64 string will have two equal signs at the end")
 			{
-				REQUIRE(encode_to_base64("A", 1) == std::string("QQ=="));
+				REQUIRE(base64lib::encode_to_base64("A", 1) == std::string("QQ=="));
 			}
 		}
 	}
@@ -20,7 +20,7 @@ SCENARIO("Valid data is provided to encode", "[encoding]")
 		{
 			THEN("The resulting Base64 string will have one equal sign at the end")
 			{
-				REQUIRE(encode_to_base64("AB", 2) == std::string("QUI="));
+				REQUIRE(base64lib::encode_to_base64("AB", 2) == std::string("QUI="));
 			}
 		}
 	}
@@ -31,7 +31,7 @@ SCENARIO("Valid data is provided to encode", "[encoding]")
 		{
 			THEN("The resulting Base64 string will have no equal signs at the end")
 			{
-				REQUIRE(encode_to_base64("ABC", 3) == std::string("QUJD"));
+				REQUIRE(base64lib::encode_to_base64("ABC", 3) == std::string("QUJD"));
 			}
 		}
 	}
