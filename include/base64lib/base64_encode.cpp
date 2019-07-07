@@ -45,6 +45,8 @@ namespace base64lib
 			}
 		}
 
+		// A hexad is a group of six bits.
+
 		unsigned char calculate_second_hexad(unsigned char first_byte,
 			unsigned char second_byte)
 		{
@@ -70,14 +72,12 @@ namespace base64lib
 
 		std::string encoded_bytes;
 		encoded_bytes.reserve((padded_bytes.size() / 3) * 4);
-		// The loop requires that the vector size be perfectly divisible by 3.
+		
 		for (size_t i = 0; i < padded_bytes.size(); i += 3)
 		{
 			unsigned char first_byte = padded_bytes[i];
 			unsigned char second_byte = padded_bytes[i + 1];
 			unsigned char last_byte = padded_bytes[i + 2];
-
-			// A hexad is a group of six bits.
 
 			encoded_bytes += b64_encoding_table[first_byte >> 2];
 			encoded_bytes += b64_encoding_table[calculate_second_hexad(first_byte, second_byte)];
