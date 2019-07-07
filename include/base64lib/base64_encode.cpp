@@ -16,7 +16,6 @@ std::string encode_to_base64(const char *source_bytes,
 		unsigned char last_byte = padded_bytes[i + 2];
 
 		// A hexad is a group of six bits.
-		unsigned char first_hexad = first_byte >> 2; 
 
 		unsigned char second_hexad_first_bits = (first_byte & 0b00000011) << 4;
 		unsigned char second_hexad_last_bits = (second_byte & 0b11110000) >> 4;
@@ -26,12 +25,10 @@ std::string encode_to_base64(const char *source_bytes,
 		unsigned char third_hexad_last_bits = last_byte >> 6;
 		unsigned char third_hexad = third_hexad_first_bits ^ third_hexad_last_bits;
 
-		unsigned char last_hexad = last_byte & 0b0111111;
-
-		encoded_bytes += b64_encoding_table[first_hexad];
+		encoded_bytes += b64_encoding_table[first_byte >> 2];
 		encoded_bytes += b64_encoding_table[second_hexad];
 		encoded_bytes += b64_encoding_table[third_hexad];
-		encoded_bytes += b64_encoding_table[last_hexad];
+		encoded_bytes += b64_encoding_table[last_byte & 63];
 	}
 
 	overwrite_end_bytes(&encoded_bytes, pad_result);
