@@ -1,6 +1,10 @@
 # Base64Lib
 Functions for base64 encoding and decoding.
 
+- Supports encoding files and strings by taking `const char`
+- Written for ease of understanding the Base64 algorithm
+- Unit tested
+
 # Requirements
 - [Catch2](https://github.com/catchorg/Catch2) is required for running the unit tests.
 
