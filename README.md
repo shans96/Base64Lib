@@ -1,5 +1,5 @@
 # Base64Lib
-Functions for base64 encoding and decoding.
+  A library for base64 encoding.
 
 - Supports encoding files and strings by taking `const char`
 - Written for ease of understanding the Base64 algorithm
